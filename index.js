@@ -2,11 +2,11 @@ require('dotenv').config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const express = require('express')
 const app = express()
-const port = 8000
+const port = process.env.PORT || 8000 
 const genAI = new GoogleGenerativeAI(process.env.api_key);
 const Queue = require('bull');
 const cors  = require("cors")
-const PromptQueue = new Queue('PromptQueue', { redis: { port: 6379, host: '127.0.0.1' } })
+const PromptQueue = new Queue('PromptQueue', { redis: { port: process.env.redis_port, host: process.env.redis_host } })
 
 app.use(express.json())
 app.use(cors())
